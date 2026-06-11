@@ -1,0 +1,39 @@
+---
+layout: default
+---
+<main class="container article-body">
+
+  <div class="article-back">
+    <a href="/articles/" class="back-link">← back</a>
+  </div>
+
+  <header class="article-header">
+    <div class="prompt-line">
+      <span class="p-user">doucky</span><span class="p-sep">@</span><span class="p-host">github.io</span><span class="p-sep">:</span><span class="p-dir">~/blog/{{ page.tags | first }}</span><span class="p-sep">$ cat {{ page.slug }}.html</span>
+    </div>
+    <div class="card-meta" style="margin-top:1.5rem;">
+      <span class="card-date">{{ page.date | date: "%b %d, %Y" }}</span>
+      {% for tag in page.tags %}
+        <span class="card-tag tag-{{ tag }}">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    <h1 class="article-title">{{ page.title }}</h1>
+    {% if page.lead %}
+    <p class="article-lead">{{ page.lead }}</p>
+    {% endif %}
+  </header>
+
+  <hr class="article-divider" />
+
+  <div class="article-content">
+    {{ content }}
+  </div>
+
+  <hr class="article-divider" />
+
+  <footer class="article-footer">
+    <a href="/articles/" class="back-link">← all articles</a>
+    <span class="article-footer-date">Published {{ page.date | date: "%b %d, %Y" }}</span>
+  </footer>
+
+</main>

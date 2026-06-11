@@ -1,0 +1,281 @@
+/* ─── Article Layout ─────────────────────────────────────── */
+.article-body {
+  padding-top: 2.5rem;
+  padding-bottom: 5rem;
+  max-width: 760px;
+}
+
+.article-back {
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.85rem;
+  border-radius: 3px;
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+  display: inline-block;
+}
+.back-link:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+}
+
+/* ─── Article Header ─────────────────────────────────────── */
+.article-header {
+  margin-bottom: 2.5rem;
+}
+
+.article-header .prompt-line {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  margin-bottom: 1.5rem;
+}
+.article-header .p-user  { color: var(--green); }
+.article-header .p-sep   { color: var(--text-faint); }
+.article-header .p-host  { color: var(--blue); }
+.article-header .p-dir   { color: var(--amber); }
+.article-header .p-cmd   { color: var(--text-dim); }
+
+.article-title {
+  font-family: var(--font-mono);
+  font-size: clamp(1.3rem, 4vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--text);
+  margin: 1rem 0 1.1rem;
+}
+
+.article-lead {
+  font-size: 0.93rem;
+  color: var(--text-dim);
+  border-left: 2px solid var(--amber);
+  padding-left: 1rem;
+  line-height: 1.7;
+}
+
+.article-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+/* ─── Article Content (prose) ────────────────────────────── */
+.article-content {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-dim);
+}
+
+.article-content h2 {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 2.5rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.article-content h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.article-content p {
+  margin-bottom: 1.2rem;
+  color: var(--text-dim);
+}
+
+.article-content strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.article-content code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--amber);
+  background: var(--surface);
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+}
+
+.article-content a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ─── Bash Block ─────────────────────────────────────────── */
+.bash-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+}
+
+.bash-bar {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.bash-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.bash-title {
+  margin-left: 0.5rem;
+  font-size: 0.68rem;
+  color: var(--text-faint);
+  letter-spacing: 0.03em;
+}
+
+.bash-body {
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+.bash-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  white-space: pre;
+}
+
+.b-prompt       { display: flex; align-items: baseline; flex-shrink: 0; }
+.b-user         { color: var(--green); }
+.b-at           { color: var(--text-faint); }
+.b-host         { color: var(--blue); }
+.b-sep          { color: var(--text-faint); }
+.b-dir          { color: var(--amber); }
+.b-dollar       { color: var(--text-faint); margin-left: 0.1rem; margin-right: 0.5rem; }
+.b-cmd          { color: var(--text); }
+.b-flag         { color: var(--blue); }
+.b-arg          { color: var(--amber); }
+.b-val          { color: var(--amber); }
+.b-dim          { color: var(--text-faint); }
+.b-ok           { color: var(--green); }
+
+.bash-out {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  padding-left: 1rem;
+  margin-bottom: 0.15rem;
+  white-space: pre;
+}
+
+/* ─── Figure ─────────────────────────────────────────────── */
+.article-figure {
+  margin: 2rem 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.article-figure img {
+  width: 100%;
+  display: block;
+}
+
+.article-figure figcaption {
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  border-top: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+.fig-num {
+  color: var(--amber);
+}
+
+/* ─── IOC Table ──────────────────────────────────────────── */
+.ioc-table-wrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.ioc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.ioc-table th {
+  text-align: left;
+  color: var(--text-faint);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.ioc-table td {
+  padding: 0.55rem 1rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+}
+
+.ioc-table td:first-child {
+  color: var(--text-faint);
+  width: 110px;
+}
+
+.ioc-table td code {
+  font-size: 0.78rem;
+}
+
+.ioc-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ─── Article Footer ─────────────────────────────────────── */
+.article-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.article-footer-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .bash-line, .bash-out { white-space: pre-wrap; word-break: break-all; }
+  .article-title { font-size: 1.25rem; }
+}
