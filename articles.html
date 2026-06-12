@@ -2,6 +2,7 @@
 layout: default
 title: articles
 permalink: /articles/
+page_js: articles
 ---
 <div class="container">
 
@@ -13,8 +14,20 @@ permalink: /articles/
     <p>Grouped by theme — malware analysis, research, and tooling projects.</p>
   </header>
 
+  <div class="search-bar">
+    <input
+      type="text"
+      id="article-search"
+      class="search-input"
+      placeholder="keyword..."
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <span class="search-results-count" id="search-count"></span>
+  </div>
+
   <section class="section">
-    <div class="theme-grid">
+    <div class="theme-grid" id="theme-grid">
 
       {% for theme in site.themes %}
         {% assign theme_posts = "" | split: "" %}
@@ -29,22 +42,41 @@ permalink: /articles/
         {% endfor %}
 
         {% if theme_posts.size > 0 %}
-        <div class="theme-group">
+        <div class="theme-group" id="theme-{{ theme.id }}" data-theme="{{ theme.id }}">
           <div class="theme-label theme-{{ theme.id }}">
             <span class="dot"></span>
-            <h3>{{ theme.label }}</h3>
+            <h3>
+              <a class="theme-toggle" href="#theme-{{ theme.id }}" title="Voir tous les articles">
+                {{ theme.label }}
+              </a>
+            </h3>
+            {% if theme_posts.size > 3 %}
+            <span class="theme-count" data-default-count="{{ theme_posts.size }}">{{ theme_posts.size }}</span>
+            {% endif %}
           </div>
           <div class="theme-articles">
             {% for post in theme_posts %}
-            <a class="theme-article-link" href="{{ post.url }}">
+            <a class="theme-article-link{% if forloop.index > 3 %} theme-article-hidden{% endif %}"
+               href="{{ post.url }}"
+               data-title="{{ post.title | downcase | escape }}">
               <span class="title">{{ post.title }}</span>
               <span class="date">{{ post.date | date: "%b %d, %Y" }}</span>
             </a>
             {% endfor %}
+            {% if theme_posts.size > 3 %}
+            <button class="theme-show-more" data-total="{{ theme_posts.size }}">
+              <span class="show-more-text">+{{ theme_posts.size | minus: 3 }} articles</span>
+              <span class="show-less-text" style="display:none">↑ réduire</span>
+            </button>
+            {% endif %}
           </div>
         </div>
         {% endif %}
       {% endfor %}
+
+      <div class="search-empty" id="search-empty" style="display:none">
+        <span class="search-empty-prompt">bash: no matches found for pattern "<span id="search-empty-term"></span>"</span>
+      </div>
 
     </div>
   </section>
