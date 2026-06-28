@@ -187,6 +187,8 @@ PORT = 4444
 </details>
 ```
 
+**Links** — inside `.article-content`, all links (`<a>`) are auto-styled amber with a soft underline that intensifies on hover — no class needed. Since kramdown runs with `input: GFM`, a bare URL pasted into a post is auto-linkified and picks up this style automatically. Outside article content (custom pages, layouts), apply the reusable `.link` utility class (defined in `style.css`) to any `<a>` to get the same amber link style. Example: `<a class="link" href="https://example.com">example.com</a>`.
+
 **Prose headings** — inside `.article-content`, markdown headings are auto-styled: `##` (h2) renders as a mono uppercase faint section label with a trailing rule line, and `###` (h3) renders as a mono subheading in primary text with an amber `#` prefix injected via CSS (so don't type the `#` yourself — markdown's `###` already produces the heading). Just write normal markdown headings; no classes needed.
 
 **Tables** — plain markdown (GFM) tables inside `.article-content` are auto-styled (mono uppercase headers, bordered rows, hover highlight) — just write a normal markdown table, no classes needed. They scroll horizontally on narrow screens. For a key/value IOC layout with labels down the first column, use the raw-HTML `.ioc-table` variant instead (wrap it in `.ioc-table-wrap`); its first `<td>` is dimmed and fixed-width (110px). Example markdown table:
