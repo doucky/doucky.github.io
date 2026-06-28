@@ -156,7 +156,7 @@ All styles are split across three files:
 | File | Scope |
 |---|---|
 | `css/style.css` | Design tokens, global reset, typography, nav, home page, tools page, empty state, tag badges |
-| `css/article.css` | Article page layout, bash blocks, expandable code blocks, tool reference links, figures, IOC tables, search bar, theme groups, lightbox, reading progress bar, tags page, related articles, prev/next nav, reading time |
+| `css/article.css` | Article page layout, bash blocks, expandable code blocks, tool reference links, capability cards, kill chain, figures, prose tables, IOC tables, search bar, theme groups, lightbox, reading progress bar, tags page, related articles, prev/next nav, reading time |
 | `css/syntax.css` | Rouge syntax highlighting (do not edit manually) |
 
 ### Design tokens
@@ -183,6 +183,77 @@ PORT = 4444
 
   </div>
 </details>
+```
+
+**Prose headings** — inside `.article-content`, markdown headings are auto-styled: `##` (h2) renders as a mono uppercase faint section label with a trailing rule line, and `###` (h3) renders as a mono subheading in primary text with an amber `#` prefix injected via CSS (so don't type the `#` yourself — markdown's `###` already produces the heading). Just write normal markdown headings; no classes needed.
+
+**Tables** — plain markdown (GFM) tables inside `.article-content` are auto-styled (mono uppercase headers, bordered rows, hover highlight) — just write a normal markdown table, no classes needed. They scroll horizontally on narrow screens. For a key/value IOC layout with labels down the first column, use the raw-HTML `.ioc-table` variant instead (wrap it in `.ioc-table-wrap`); its first `<td>` is dimmed and fixed-width (110px). Example markdown table:
+
+```markdown
+| Type   | Indicator                          | Note        |
+|--------|------------------------------------|-------------|
+| SHA256 | `a1b2c3…`                          | Dropper     |
+| C2     | `10.0.0.1:4444`                    | HTTP/S      |
+| Mutex  | `Global\NanoCore`                  | Persistence |
+```
+
+And the raw-HTML `.ioc-table` variant:
+
+```html
+<div class="ioc-table-wrap">
+  <table class="ioc-table">
+    <thead>
+      <tr><th>Type</th><th>Indicator</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>SHA256</td><td><code>a1b2c3…</code></td></tr>
+      <tr><td>C2</td><td><code>10.0.0.1:4444</code></td></tr>
+      <tr><td>Mutex</td><td><code>Global\NanoCore</code></td></tr>
+    </tbody>
+  </table>
+</div>
+```
+
+**Capability cards** — `.cap-grid` is a responsive grid (`auto-fit, minmax(200px, 1fr)`) of `.cap-card` blocks for presenting a malware's capabilities by category. Each card carries a color modifier which sets the `--cap` custom property driving the left accent bar, category label, and icon. Available colors: `.cap-red`, `.cap-green`, `.cap-blue`, `.cap-amber`, `.cap-purple`, `.cap-teal`, `.cap-pink`, `.cap-orange` (all defined as tokens in `style.css`). Suggested convention: red = defense evasion / anti-analysis, green = persistence, blue = C2 / network, amber = exfiltration, purple = discovery, teal = collection, pink = credential access, orange = execution. Structure: `.cap-card-head` (holds `.cap-card-icon` and `.cap-card-cat`), then `.cap-card-title` and `.cap-card-desc`. The icon slot takes any glyph (the site has no icon font loaded — use a unicode symbol or inline SVG). Example:
+
+```html
+<div class="cap-grid">
+  <div class="cap-card cap-red">
+    <div class="cap-card-head">
+      <span class="cap-card-icon">⊘</span>
+      <span class="cap-card-cat">Évasion</span>
+    </div>
+    <div class="cap-card-title">Anti-analyse</div>
+    <div class="cap-card-desc">Détecte VM, debuggers et sandbox.</div>
+  </div>
+  <div class="cap-card cap-blue">
+    <div class="cap-card-head">
+      <span class="cap-card-icon">⇄</span>
+      <span class="cap-card-cat">C2</span>
+    </div>
+    <div class="cap-card-title">Canal chiffré</div>
+    <div class="cap-card-desc">HTTP/S, payload en DES.</div>
+  </div>
+</div>
+```
+
+**Kill chain** — `.kill-chain` is a vertical execution timeline of `.kc-step` items, auto-numbered via a CSS counter (no numbers in markup) and joined by a connector line drawn off each `.kc-num`. Each step takes a color modifier setting `--kc` for the numbered circle. Available colors: `.kc-red`, `.kc-green`, `.kc-blue`, `.kc-amber`, `.kc-purple`, `.kc-teal`, `.kc-pink`, `.kc-orange`. Structure per step: `.kc-num` (empty — the number is injected by CSS) and a `.kc-body` holding `.kc-title` and `.kc-desc`. Order the steps to follow the attack flow (dropper → persistence → C2 → exfiltration). Example:
+
+```html
+<div class="kill-chain">
+  <div class="kc-step kc-red">
+    <div class="kc-num"></div>
+    <div class="kc-body"><div class="kc-title">Dropper / déballage</div><div class="kc-desc">Charge utile déchiffrée en mémoire.</div></div>
+  </div>
+  <div class="kc-step kc-green">
+    <div class="kc-num"></div>
+    <div class="kc-body"><div class="kc-title">Persistance</div><div class="kc-desc">Tâche planifiée + clé de registre Run.</div></div>
+  </div>
+  <div class="kc-step kc-blue">
+    <div class="kc-num"></div>
+    <div class="kc-body"><div class="kc-title">Beacon C2</div><div class="kc-desc">Connexion HTTP/S vers le serveur.</div></div>
+  </div>
+</div>
 ```
 
 **Tool reference link** — `a.tool-ref` is a fully clickable card for linking out to a tool from inside article content (defined in `article.css`). The whole `<a>` is the link, with an amber accent bar and `var(--surface2)` background on hover, matching the card pattern above. It holds three spans: `.tool-ref-title` (mono, amber; a `⎋` icon is prepended via CSS), `.tool-ref-desc` (dim description), and `.tool-ref-url` (faint mono URL). Distinct from the tools-page `.tool-card` (a `<div>`) and its inner `.tool-link`. Because it is an `<a>`, never nest other links inside it (see §12). Example:
@@ -316,6 +387,10 @@ Defined on `:root` in `css/style.css`:
 | `--green` | `#5a9e6f` | Terminal user color |
 | `--blue` | `#4a90b8` | Terminal host color |
 | `--red` | `#b05555` | Error color |
+| `--purple` | `#8a73b8` | Capability/kill-chain category color |
+| `--teal` | `#4f9e94` | Capability/kill-chain category color |
+| `--pink` | `#b06a93` | Capability/kill-chain category color |
+| `--orange` | `#c4774a` | Capability/kill-chain category color |
 | `--font-mono` | `'JetBrains Mono', monospace` | Monospace font stack |
 | `--font-sans` | `'Inter', system-ui, sans-serif` | Sans-serif font stack |
 | `--gap` | `2rem` | Standard spacing unit |

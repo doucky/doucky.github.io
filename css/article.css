@@ -91,6 +91,23 @@
   background: var(--border);
 }
 
+.article-content h3 {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+  margin: 2rem 0 0.8rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.article-content h3::before {
+  content: '#';
+  color: var(--amber);
+  font-weight: 500;
+}
+
 .article-content p {
   margin-bottom: 1.2rem;
   color: var(--text-dim);
@@ -392,6 +409,177 @@ a.tool-ref:hover .tool-ref-url {
   color: var(--text-dim);
 }
 
+/* ─── Capability cards (by category) ─────────────────────── */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+}
+
+.cap-card {
+  --cap: var(--amber);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--cap);
+  border-radius: 0 4px 4px 0;
+  padding: 0.85rem 1rem;
+}
+
+.cap-red    { --cap: var(--red); }
+.cap-green  { --cap: var(--green); }
+.cap-blue   { --cap: var(--blue); }
+.cap-amber  { --cap: var(--amber); }
+.cap-purple { --cap: var(--purple); }
+.cap-teal   { --cap: var(--teal); }
+.cap-pink   { --cap: var(--pink); }
+.cap-orange { --cap: var(--orange); }
+
+.cap-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.cap-card-icon {
+  color: var(--cap);
+  font-size: 0.95rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cap-card-cat {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cap);
+}
+
+.cap-card-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+  line-height: 1.4;
+}
+
+.cap-card-desc {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* ─── Kill chain (execution timeline) ────────────────────── */
+.kill-chain {
+  counter-reset: kc;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.kc-step {
+  --kc: var(--amber);
+  counter-increment: kc;
+  display: flex;
+  gap: 0.8rem;
+  position: relative;
+}
+
+.kc-red    { --kc: var(--red); }
+.kc-green  { --kc: var(--green); }
+.kc-blue   { --kc: var(--blue); }
+.kc-amber  { --kc: var(--amber); }
+.kc-purple { --kc: var(--purple); }
+.kc-teal   { --kc: var(--teal); }
+.kc-pink   { --kc: var(--pink); }
+.kc-orange { --kc: var(--orange); }
+
+.kc-num {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--kc);
+  color: var(--kc);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.kc-num::before { content: counter(kc); }
+
+/* Connector line linking each step to the next */
+.kc-step:not(:last-child) .kc-num::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: calc(0.9rem + 0.4rem);
+  background: var(--border);
+}
+
+.kc-body { padding-top: 0.15rem; }
+
+.kc-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.kc-desc {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin-top: 0.1rem;
+}
+
+/* ─── Prose tables (markdown) ────────────────────────────── */
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.82rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.article-content thead th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  background: var(--surface);
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.article-content tbody td {
+  padding: 0.55rem 1rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.article-content tbody tr:last-child td { border-bottom: none; }
+.article-content tbody tr:hover { background: var(--surface2); }
+
+.article-content table code { font-size: 0.78rem; }
+
 /* ─── IOC Table ──────────────────────────────────────────── */
 .ioc-table-wrap {
   overflow-x: auto;
@@ -456,6 +644,7 @@ a.tool-ref:hover .tool-ref-url {
 @media (max-width: 600px) {
   .bash-line, .bash-out { white-space: pre-wrap; word-break: break-all; }
   .article-title { font-size: 1.25rem; }
+  .article-content table { display: block; overflow-x: auto; }
 }
 
 /* ─── Search bar ─────────────────────────────────────────── */
