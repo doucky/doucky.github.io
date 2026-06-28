@@ -23,6 +23,7 @@ This guide covers the project architecture, CSS/JS design decisions, and how to 
     - [Key CSS patterns](#key-css-patterns)
   - [6. JavaScript modules](#6-javascript-modules)
     - [`js/articles.js`](#jsarticlesjs)
+    - [`js/command-palette.js`](#jscommand-palettejs)
     - [`js/code-peek.js`](#jscode-peekjs)
     - [`js/lightbox.js`](#jslightboxjs)
     - [`js/reading-progress.js`](#jsreading-progressjs)
@@ -48,7 +49,8 @@ doucky.github.io/
 ├── _includes/
 │   ├── head.html        # <head> block: meta, CSS links
 │   ├── nav.html         # Top navigation bar
-│   └── footer.html      # Footer
+│   ├── footer.html      # Footer
+│   └── command-palette.html  # Ctrl/Cmd+K palette markup + Jekyll search index
 ├── _layouts/
 │   ├── default.html     # Base layout (wraps all pages)
 │   ├── post.html        # Article layout (extends default)
@@ -60,6 +62,7 @@ doucky.github.io/
 │   └── syntax.css       # Rouge syntax highlighting (auto-generated theme)
 ├── js/
 │   ├── articles.js      # Search + expand/collapse on /articles/
+│   ├── command-palette.js  # Site-wide Ctrl/Cmd+K palette
 │   ├── code-peek.js     # Expandable code blocks with line preview
 │   ├── lightbox.js      # Image lightbox on article pages
 │   ├── reading-progress.js  # Scroll progress bar on article pages
@@ -371,6 +374,12 @@ Responsibilities:
 Keyboard shortcuts:
 - `/` focuses the search input from anywhere on the page
 - `Escape` clears the search and blurs the input
+
+### `js/command-palette.js`
+
+Loaded on **every** page (hardcoded in `_layouts/default.html`, alongside the `command-palette.html` include).
+
+A site-wide fuzzy launcher opened with `Ctrl/Cmd+K` (or the `[data-cmdk-open]` trigger button in the nav). Its item set comes from the JSON embedded in `_includes/command-palette.html` (`#cmdk-index`), which Jekyll fills with the nav pages and every post (`title`, `url`, `hint` = date, `tags`); two built-in actions (theme toggle — which clicks `#theme-switch` — and the RSS feed) are appended in JS. Matching is a lightweight fuzzy subsequence scorer (contiguous-run and word-start bonuses); results are sorted by score. Full keyboard control: `↑`/`↓` (wrap-around) and `Home`/`End` to move, `Enter` to activate, `Esc` to close, and clicking an item or the backdrop. Adding a new global page only requires editing the index in the include — no JS change. Behaviour is covered by a jsdom test harness (open/close, fuzzy filter, keyboard nav, action dispatch, empty state).
 
 ### `js/code-peek.js`
 

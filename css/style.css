@@ -219,6 +219,9 @@ nav {
   border-bottom: 1px solid var(--border);
 }
 
+/* Home page: no divider line above "Latest articles" */
+.page-header--flush { border-bottom: none; }
+
 .page-header .label {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -775,3 +778,156 @@ footer {
 
 /* ─── 404 page ───────────────────────────────────────────── */
 .nf-req { color: var(--text-dim); word-break: break-all; }
+
+/* ─── Command palette (Ctrl/Cmd+K) ───────────────────────── */
+.cmdk-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 30px;
+  padding: 0 0.5rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.cmdk-trigger:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+  background: var(--surface2);
+}
+.cmdk-trigger-kbd { display: inline-flex; gap: 2px; }
+.cmdk-trigger-kbd kbd,
+.cmdk-foot kbd,
+.cmdk-esc {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  line-height: 1;
+  padding: 2px 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-faint);
+}
+/* Hide the keycaps on narrow screens; the icon stays as the trigger. */
+@media (max-width: 600px) {
+  .cmdk-trigger-kbd { display: none; }
+}
+
+.cmdk {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 1rem 1rem;
+}
+.cmdk[hidden] { display: none; }
+
+.cmdk-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.cmdk-panel {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  animation: cmdk-in 0.12s ease-out;
+}
+@keyframes cmdk-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cmdk-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.cmdk-prompt {
+  font-family: var(--font-mono);
+  color: var(--green);
+  font-size: 0.95rem;
+}
+.cmdk-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+}
+.cmdk-input::placeholder { color: var(--text-faint); }
+
+.cmdk-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.35rem;
+  overflow-y: auto;
+}
+.cmdk-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+.cmdk-item.is-active { background: var(--surface2); }
+.cmdk-item-icon {
+  flex: 0 0 1.4rem;
+  color: var(--amber);
+  font-size: 0.8rem;
+  text-align: center;
+}
+.cmdk-item-title {
+  flex: 1;
+  color: var(--text);
+  font-size: 0.86rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cmdk-item-hint {
+  color: var(--text-faint);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.cmdk-empty {
+  padding: 1.2rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.cmdk-foot {
+  display: flex;
+  gap: 1.1rem;
+  padding: 0.55rem 0.9rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-faint);
+}
+.cmdk-foot span { display: inline-flex; align-items: center; gap: 0.3rem; }
+
+body.cmdk-open { overflow: hidden; }
