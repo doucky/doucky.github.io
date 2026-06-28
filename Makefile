@@ -4,6 +4,8 @@
 BUNDLE = bundle exec
 JEKYLL = $(BUNDLE) jekyll
 PORT   ?= 4000
+# Force file polling so saves are detected reliably on Windows / network drives
+POLL   = --force_polling
 
 .DEFAULT_GOAL := help
 .PHONY: help install update serve dev incremental drafts build clean rebuild
@@ -20,16 +22,16 @@ update: ## Update gems to their latest allowed versions
 	bundle update
 
 serve: ## Serve locally with live reload (auto-refresh on save)
-	$(JEKYLL) serve --livereload --port $(PORT)
+	$(JEKYLL) serve --livereload $(POLL) --port $(PORT)
 
 dev: ## Full dev mode: live reload + drafts + incremental builds
-	$(JEKYLL) serve --livereload --drafts --incremental --port $(PORT)
+	$(JEKYLL) serve --livereload --drafts --incremental $(POLL) --port $(PORT)
 
 incremental: ## Serve with live reload + faster incremental rebuilds
-	$(JEKYLL) serve --livereload --incremental --port $(PORT)
+	$(JEKYLL) serve --livereload --incremental $(POLL) --port $(PORT)
 
 drafts: ## Serve with live reload, including posts in _drafts/
-	$(JEKYLL) serve --livereload --drafts --port $(PORT)
+	$(JEKYLL) serve --livereload --drafts $(POLL) --port $(PORT)
 
 build: ## Build the production site into _site/
 	JEKYLL_ENV=production $(JEKYLL) build
