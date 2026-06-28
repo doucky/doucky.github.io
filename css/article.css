@@ -507,3 +507,11 @@
   .post-nav { grid-template-columns: 1fr; }
   .post-nav-next { text-align: left; }
 }
+
+/* ─── Reading time ───────────────────────────────────────── */
+.reading-time {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  margin-left: auto;
+}
