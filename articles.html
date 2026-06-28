@@ -1,0 +1,52 @@
+---
+layout: default
+title: articles
+permalink: /articles/
+---
+<div class="container">
+
+  <header class="page-header">
+    <div class="prompt-line">
+      <span class="p-user">doucky</span><span style="color:var(--text-faint)">@</span><span class="p-host">github.io</span><span style="color:var(--text-faint)">:</span><span class="p-dir">~/blog</span><span style="color:var(--text-faint)">$ ls -R | sort -k3</span>
+    </div>
+    <h1>All <span class="accent">articles.</span></h1>
+    <p>Grouped by theme — malware analysis, research, and tooling projects.</p>
+  </header>
+
+  <section class="section">
+    <div class="theme-grid">
+
+      {% for theme in site.themes %}
+        {% assign theme_posts = "" | split: "" %}
+        {% for post in site.posts %}
+          {% for tag in post.tags %}
+            {% if theme.tags contains tag %}
+              {% unless theme_posts contains post %}
+                {% assign theme_posts = theme_posts | push: post %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+
+        {% if theme_posts.size > 0 %}
+        <div class="theme-group">
+          <div class="theme-label theme-{{ theme.id }}">
+            <span class="dot"></span>
+            <h3>{{ theme.label }}</h3>
+          </div>
+          <div class="theme-articles">
+            {% for post in theme_posts %}
+            <a class="theme-article-link" href="{{ post.url }}">
+              <span class="title">{{ post.title }}</span>
+              <span class="date">{{ post.date | date: "%b %d, %Y" }}</span>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include head.html %}
+  <style>
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .blink { animation: blink 1s step-start infinite; }
+  </style>
+</head>
+<body>
+
+  {% include nav.html %}
+
+  {{ content }}
+
+  {% include footer.html %}
+
+</body>
+</html>

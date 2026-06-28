@@ -1,0 +1,44 @@
+title: doucky
+description: malware analysis & research
+url: "https://doucky.github.io"
+baseurl: ""
+
+author:
+  name: doucky
+  github: "https://github.com/doucky"
+  twitter: "https://twitter.com/doucky"
+  email: "doucky@proton.me"
+
+# Permalink style: /slug/ (clean URLs, no date in path)
+permalink: /articles/:slug/
+
+# Article themes for the /articles/ grouping page
+themes:
+  - id: malware
+    label: "Malware Analysis"
+    tags: [malware, re]
+  - id: research
+    label: "Research"
+    tags: [research]
+  - id: project
+    label: "Projects & Tools"
+    tags: [project, tool]
+
+# Jekyll settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - "*.gem"
+  - .bundle
+  - vendor
+  - node_modules

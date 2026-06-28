@@ -1,0 +1,59 @@
+---
+layout: default
+title: whoami
+permalink: /whoami/
+---
+<div class="container">
+
+  <header class="page-header">
+    <div class="prompt-line">
+      <span class="p-user">doucky</span><span style="color:var(--text-faint)">@</span><span class="p-host">github.io</span><span style="color:var(--text-faint)">:</span><span class="p-dir">~/blog</span><span style="color:var(--text-faint)">$ whoami</span>
+    </div>
+    <h1>About <span class="accent">me.</span></h1>
+    <p>Security researcher focused on malware analysis and reverse engineering.</p>
+  </header>
+
+  <section class="section">
+    <div class="whoami-grid">
+
+      <div class="info-block full-width">
+        <div class="block-label">// bio</div>
+        <p>Security enthousiast focused on forensic, malware analysis and reverse engineering.
+        Dissecting malwares to learn malware analysis &amp; reverse engineering. This blog documents experiences, techniques and any subject that I am interested in.</p>
+      </div>
+
+      <div class="info-block">
+        <div class="block-label">// skills</div>
+        <div class="skills-list">
+          {% assign skills = "Malware Analysis,Reverse Engineering,YARA,x86/x64 Assembly,IDA,Python,C++,Network Forensics,Threat Intelligence,Static Analysis,Dynamic Analysis" | split: "," %}
+          {% for skill in skills %}
+          <span class="skill-chip">{{ skill }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="block-label">// contact</div>
+        <div class="contact-links">
+          <a class="contact-link" href="https://github.com/doucky" target="_blank" rel="noopener">
+            <span class="lbl">github</span><span>github.com/doucky</span>
+          </a>
+          <a class="contact-link" href="https://twitter.com/doucky" target="_blank" rel="noopener">
+            <span class="lbl">twitter</span><span>@doucky</span>
+          </a>
+          <a class="contact-link" href="mailto:doucky@proton.me">
+            <span class="lbl">email</span><span>doucky@proton.me</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="info-block full-width">
+        <div class="block-label">// USage of AI</div>
+        <p>As AI is taking a growing place in our world, I try to limit my usage to subjects I don't know about and don't want to dig in.
+        Each time AI (LLMs) will be used in a blog article it will be explicitly documented. For instance, the entire frontend was generated using Claude Sonnet 4.6.</p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
