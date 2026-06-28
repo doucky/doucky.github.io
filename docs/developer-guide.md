@@ -44,7 +44,8 @@ doucky.github.io/
 ├── js/
 │   ├── articles.js      # Search + expand/collapse on /articles/
 │   ├── lightbox.js      # Image lightbox on article pages
-│   └── reading-progress.js  # Scroll progress bar on article pages
+│   ├── reading-progress.js  # Scroll progress bar on article pages
+│   └── toc.js           # Table-of-contents overlay on article pages
 ├── img/                 # Images, organised by article slug
 ├── docs/                # This documentation folder
 ├── index.html           # Home page (/)
@@ -109,10 +110,11 @@ Extends `default`. Used by all blog posts. Renders:
 - Prev/next navigation (`page.previous` / `page.next`)
 - Footer with date
 
-Also hardcodes two script tags (cannot be done via `page_js` because layout front matter variables are not exposed as `page.*`):
+Also hardcodes three script tags (cannot be done via `page_js` because layout front matter variables are not exposed as `page.*`):
 ```html
 <script src="/js/lightbox.js" defer></script>
 <script src="/js/reading-progress.js" defer></script>
+<script src="/js/toc.js" defer></script>
 ```
 
 ### `_layouts/page.html`
@@ -156,7 +158,7 @@ All styles are split across three files:
 | File | Scope |
 |---|---|
 | `css/style.css` | Design tokens, global reset, typography, nav, home page, tools page, empty state, tag badges |
-| `css/article.css` | Article page layout, bash blocks, expandable code blocks, tool reference links, capability cards, kill chain, figures, prose tables, IOC tables, search bar, theme groups, lightbox, reading progress bar, tags page, related articles, prev/next nav, reading time |
+| `css/article.css` | Article page layout, bash blocks, expandable code blocks, tool reference links, capability cards, kill chain, figures, prose tables, IOC tables, search bar, theme groups, lightbox, reading progress bar, table-of-contents overlay, tags page, related articles, prev/next nav, reading time |
 | `css/syntax.css` | Rouge syntax highlighting (do not edit manually) |
 
 ### Design tokens
@@ -300,6 +302,16 @@ Attaches a `click` listener to every `.article-figure img`. On click, injects `#
 Loaded on all article pages (hardcoded in `_layouts/post.html`).
 
 Injects `#reading-progress` (a 2px amber bar) fixed below the nav. Updates its `width` percentage on every `scroll` event using `window.scrollY / (scrollHeight - clientHeight)`.
+
+### `js/toc.js`
+
+Loaded on all article pages (hardcoded in `_layouts/post.html`).
+
+Builds a clickable table-of-contents overlay from the `h2`/`h3` headings inside `.article-content`. Does nothing if there are fewer than two headings. Steps:
+- Ensures every heading has an `id` (slugifies its text if kramdown didn't already add one), so links resolve.
+- Injects a fixed `#toc-toggle` button (bottom-right) and a hidden `#toc-overlay` containing `#toc-panel` > `#toc-list`. Each entry is a `.toc-link` (with a `.toc-h2`/`.toc-h3` level modifier for indentation).
+- Clicking the toggle opens the overlay; clicking a link smooth-scrolls to the heading, updates the URL hash, and closes it. Closes on `Escape`, on the `×` button, or on a click outside the panel.
+- A `scroll` listener adds `.toc-active` (amber) to the link of the section currently in view. Headings get `scroll-margin-top: 70px` in CSS so they clear the sticky nav.
 
 ---
 

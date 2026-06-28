@@ -816,6 +816,124 @@ a.tool-ref:hover .tool-ref-url {
   color: var(--text);
 }
 
+/* ─── Table of contents overlay ──────────────────────────── */
+/* Offset anchored scroll so headings clear the sticky nav */
+.article-content h2,
+.article-content h3 { scroll-margin-top: 70px; }
+
+#toc-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 300;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+#toc-toggle:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+  background: var(--surface2);
+}
+
+#toc-toggle .toc-toggle-icon { color: var(--amber); font-size: 0.9rem; }
+
+#toc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(13, 15, 14, 0.92);
+  backdrop-filter: blur(6px);
+  align-items: flex-start;
+  justify-content: center;
+  padding: 4rem 1.5rem 2rem;
+  overflow-y: auto;
+}
+
+#toc-overlay.toc-visible { display: flex; }
+
+#toc-panel {
+  width: 100%;
+  max-width: 560px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.toc-panel-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.toc-panel-bar .toc-close {
+  all: unset;
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--text-faint);
+  transition: color 0.15s;
+}
+
+.toc-panel-bar .toc-close:hover { color: var(--text); }
+
+#toc-list {
+  list-style: none;
+  padding: 0.6rem 0;
+  margin: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.toc-link {
+  display: block;
+  padding: 0.4rem 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  border-left: 2px solid transparent;
+  transition: color 0.12s, background 0.12s, border-color 0.12s;
+}
+
+.toc-link:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+
+.toc-link.toc-h3 {
+  padding-left: 2.4rem;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.toc-link.toc-active {
+  color: var(--amber);
+  border-left-color: var(--amber);
+}
+
 /* ─── Reading progress bar ───────────────────────────────── */
 #reading-progress {
   position: fixed;
