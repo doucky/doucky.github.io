@@ -17,13 +17,13 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --font-body: 'Inter', system-ui, sans-serif;
 
-  --max-w: 820px;
+  --max-w: 980px;
   --gap:   2.5rem;
 }
 
 /* ─── Reset ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 110%; }
 
 body {
   background: var(--bg);
