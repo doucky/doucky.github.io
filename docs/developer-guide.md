@@ -157,7 +157,7 @@ All styles are split across three files:
 
 | File | Scope |
 |---|---|
-| `css/style.css` | Design tokens, global reset, typography, nav, home page, tools page, empty state, tag badges |
+| `css/style.css` | Design tokens, web fonts (Inter via Google Fonts, JetBrains Mono via jsDelivr `@font-face`), global reset, typography, nav, home page, tools page, empty state, tag badges, `.link` utility |
 | `css/article.css` | Article page layout, bash blocks, expandable code blocks, tool reference links, capability cards, kill chain, figures, prose tables, IOC tables, search bar, theme groups, lightbox, reading progress bar, table-of-contents overlay, tags page, related articles, prev/next nav, reading time |
 | `css/syntax.css` | Rouge syntax highlighting (do not edit manually) |
 
@@ -436,3 +436,5 @@ Set `page_js: articles` in a page to load `/js/articles.js`.
 **Jekyll `page.*` vs `layout.*`:** Variables set in a layout's front matter are accessible as `layout.*`, not `page.*`. Only variables set in the content page's own front matter are available as `page.*`. This is why `page_js` must be set in each page file, not in the layout.
 
 **`_site/` is generated — never edit it directly.** All changes must be made to source files; `_site/` is overwritten on every build.
+
+**Box-drawing tables in code blocks need the full mono font.** capa/CLI output uses heavy box-drawing glyphs (`┏ ━ ┃ ┡ ╇ ┩`). Google Fonts only serves Latin/Cyrillic/Greek subsets of JetBrains Mono, which omit these glyphs — the browser then falls back to a different mono font whose character width differs, so columns drift out of alignment. Fix: JetBrains Mono is loaded via `@font-face` from jsDelivr (`cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono@2.304/...`, full Unicode coverage) in `style.css`, while Inter still comes from Google Fonts. Code blocks (`.article-content .highlight, pre`) also disable ligatures and use `line-height: 1.45` so the box characters align horizontally and connect vertically. If you ever pin a new font version, keep all four weights (300/400/500/700).

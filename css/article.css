@@ -157,6 +157,17 @@
   font-size: inherit;
 }
 
+/* Code blocks: disable ligatures and tighten line-height so box-drawing
+   tables (┏━┓ ┃ ┡╇┩) align horizontally and connect vertically.
+   Higher specificity than syntax.css's .highlight so no need to edit it. */
+.article-content .highlight,
+.article-content pre {
+  line-height: 1.45;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  tab-size: 4;
+}
+
 .article-content a {
   color: var(--amber);
   text-decoration: underline;
