@@ -70,6 +70,7 @@
   font-size: 0.9rem;
   line-height: 1.8;
   color: var(--text-dim);
+  counter-reset: figure;
 }
 
 .article-content h1,
@@ -432,6 +433,105 @@ details.code-expand:not([open]) > summary .code-expand-hint::after { content: 'e
   border: none;
 }
 
+/* ─── Code peek (details/summary with preview) ───────────── */
+
+/* Override the flex summary from code-expand — peek needs a block layout
+   since it stacks a header bar + a preview pane inside <summary> */
+details.code-peek > summary {
+  display: block;
+  padding: 0;
+  border-bottom: none;
+}
+
+/* Suppress the ::before arrow added by code-expand — peek uses .ce-arrow */
+details.code-peek > summary::before { display: none; }
+
+/* Header bar */
+.ce-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  background: var(--surface2);
+  border-bottom: 1px solid transparent;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.03em;
+  user-select: none;
+  transition: color 0.15s;
+}
+
+details.code-peek[open] > summary .ce-bar,
+details.code-peek > summary:hover .ce-bar {
+  color: var(--text);
+}
+
+details.code-peek[open] > summary .ce-bar {
+  border-bottom-color: var(--border);
+}
+
+.ce-arrow {
+  font-size: 0.6rem;
+  color: var(--amber);
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+  display: inline-block;
+}
+
+details.code-peek[open] .ce-arrow {
+  transform: rotate(90deg);
+}
+
+.ce-title {
+  font-family: var(--font-mono);
+}
+
+.ce-hint {
+  margin-left: auto;
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+details.code-peek[open]     > summary .ce-hint::after { content: 'collapse'; }
+details.code-peek:not([open]) > summary .ce-hint::after { content: 'expand'; }
+
+/* Preview pane — visible only when closed */
+.ce-preview {
+  position: relative;
+  overflow: hidden;
+  /* ~4 lines at 0.8rem font / 1.45 line-height + top padding */
+  max-height: 90px;
+  border-bottom: 1px solid var(--border);
+}
+
+details.code-peek[open] .ce-preview {
+  display: none;
+}
+
+/* Strip container padding from the cloned block so it fits flush */
+.ce-preview .highlight,
+.ce-preview pre {
+  margin: 0;
+  background: transparent;
+  border: none;
+  padding: 0.6rem 1rem 0 1rem;
+  border-radius: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+}
+
+/* Gradient fade at the bottom of the preview */
+.ce-fade {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3rem;
+  background: linear-gradient(to bottom, transparent, var(--surface));
+  pointer-events: none;
+}
+
 /* ─── Figure ─────────────────────────────────────────────── */
 .article-figure {
   margin: 2rem 0;
@@ -439,6 +539,7 @@ details.code-expand:not([open]) > summary .code-expand-hint::after { content: 'e
   border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
+  counter-increment: figure;
 }
 
 .article-figure img {
@@ -455,6 +556,13 @@ details.code-expand:not([open]) > summary .code-expand-hint::after { content: 'e
   line-height: 1.5;
 }
 
+/* Auto-numbering: "Fig. N — " is generated, no need to type it */
+.article-figure figcaption::before {
+  content: 'Fig. ' counter(figure) ' — ';
+  color: var(--amber);
+}
+
+/* Kept for manual overrides; auto-numbering uses ::before above */
 .fig-num {
   color: var(--amber);
 }

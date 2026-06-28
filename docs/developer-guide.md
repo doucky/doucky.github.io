@@ -43,6 +43,7 @@ doucky.github.io/
 │   └── syntax.css       # Rouge syntax highlighting (auto-generated theme)
 ├── js/
 │   ├── articles.js      # Search + expand/collapse on /articles/
+│   ├── code-peek.js     # Expandable code blocks with line preview
 │   ├── lightbox.js      # Image lightbox on article pages
 │   ├── reading-progress.js  # Scroll progress bar on article pages
 │   └── toc.js           # Table-of-contents overlay on article pages
@@ -110,8 +111,9 @@ Extends `default`. Used by all blog posts. Renders:
 - Prev/next navigation (`page.previous` / `page.next`)
 - Footer with date
 
-Also hardcodes three script tags (cannot be done via `page_js` because layout front matter variables are not exposed as `page.*`):
+Also hardcodes four script tags (cannot be done via `page_js` because layout front matter variables are not exposed as `page.*`):
 ```html
+<script src="/js/code-peek.js" defer></script>
 <script src="/js/lightbox.js" defer></script>
 <script src="/js/reading-progress.js" defer></script>
 <script src="/js/toc.js" defer></script>
@@ -171,7 +173,47 @@ All colors and spacing are defined as CSS custom properties on `:root` in `style
 
 **Bash blocks** — `.bash-block` mimics a terminal window. Use `.bash-line`, `.b-prompt`, `.b-user`, `.b-host`, `.b-dir`, `.b-cmd`, `.b-flag`, `.b-arg`, `.b-out` span classes for coloured syntax inside commands.
 
-**Expandable code block** — `details.code-expand` is a collapsible code container built on the native HTML `<details>`/`<summary>` element, so it needs **no JavaScript**. The `<summary>` is the clickable header bar (terminal-styled); a `▶` marker rotates on open and a `.code-expand-hint` span auto-shows `expand`/`collapse` via CSS. The code goes in a `.code-expand-body` wrapper, which strips margins/backgrounds off any nested `<pre>` or Rouge `.highlight`. To put a markdown fenced block inside, add `markdown="1"` on the body so kramdown parses it; otherwise drop in a raw `<pre>`. Example:
+**Expandable code block with preview (code-peek)** — `details.code-expand.code-peek` extends the base expandable block with a visible preview of the first few lines when collapsed. It requires `code-peek.js` (loaded on all article pages). The `<summary>` is built entirely by JS — you only write the outer `<details>` and the `.code-expand-body`. The preview clones the first N lines of the actual Rouge-highlighted block (syntax colors intact) and adds a gradient fade at the bottom edge. Leading whitespace common to all lines is stripped automatically so indentation introduced by HTML nesting doesn't appear. Supported `data-*` attributes:
+
+| Attribute | Default | Purpose |
+|---|---|---|
+| `data-title` | _(none)_ | Filename shown in the header bar |
+| `data-peek-lines` | `4` | Number of lines shown in the preview |
+
+```html
+<details class="code-expand code-peek" data-title="nanocore.cs" data-peek-lines="5">
+  <div class="code-expand-body">
+    {% highlight csharp %}
+using System;
+using NanoCore;
+// full code here…
+    {% endhighlight %}
+  </div>
+</details>
+```
+
+**Supported Rouge language identifiers** — pass the identifier after `{% highlight … %}`. The most relevant ones for malware/RE work:
+
+| Identifier | Language |
+|---|---|
+| `csharp` | C# |
+| `python` | Python |
+| `cpp` / `c` | C / C++ |
+| `bash` / `shell` | Bash / Shell |
+| `powershell` | PowerShell |
+| `x86asm` / `nasm` | x86 Assembly |
+| `java` | Java |
+| `ruby` | Ruby |
+| `javascript` / `js` | JavaScript |
+| `yaml` | YAML |
+| `json` | JSON |
+| `xml` | XML |
+| `ini` / `toml` | Config files |
+| `plaintext` | No highlighting |
+
+The full list (~200 languages) is at [rouge-ruby.github.io/doc/Rouge/Lexers](https://rouge-ruby.github.io/doc/Rouge/Lexers.html) or via `rougify list` in a terminal.
+
+**Expandable code block (no preview)** — `details.code-expand` is a collapsible code container built on the native HTML `<details>`/`<summary>` element, so it needs **no JavaScript**. The `<summary>` is the clickable header bar (terminal-styled); a `▶` marker rotates on open and a `.code-expand-hint` span auto-shows `expand`/`collapse` via CSS. The code goes in a `.code-expand-body` wrapper, which strips margins/backgrounds off any nested `<pre>` or Rouge `.highlight`. To put a markdown fenced block inside, add `markdown="1"` on the body so kramdown parses it; otherwise drop in a raw `<pre>`. Example:
 
 ```html
 <details class="code-expand">
@@ -262,6 +304,17 @@ And the raw-HTML `.ioc-table` variant:
 </div>
 ```
 
+**Figures** — wrap an image in `<figure class="article-figure">` with an `<img>` and a `<figcaption>`. The `Fig. N — ` prefix is generated automatically: `.article-content` resets a `figure` CSS counter and each `.article-figure` increments it, so write only the caption text (no number, no leading dash). Numbering follows document order and resets per article. Clicking the image opens the lightbox (see `lightbox.js`). Example:
+
+```html
+<figure class="article-figure">
+  <img src="/img/slug/file.png" alt="..." loading="lazy" />
+  <figcaption>Resource entropy graph.</figcaption>
+</figure>
+```
+
+The legacy `.fig-num` span is no longer needed (kept only for manual overrides).
+
 **Tool reference link** — `a.tool-ref` is a fully clickable card for linking out to a tool from inside article content (defined in `article.css`). The whole `<a>` is the link, with an amber accent bar and `var(--surface2)` background on hover, matching the card pattern above. It holds three spans: `.tool-ref-title` (mono, amber; a `⎋` icon is prepended via CSS), `.tool-ref-desc` (dim description), and `.tool-ref-url` (faint mono URL). Distinct from the tools-page `.tool-card` (a `<div>`) and its inner `.tool-link`. Because it is an `<a>`, never nest other links inside it (see §12). Example:
 
 ```html
@@ -294,6 +347,19 @@ Responsibilities:
 Keyboard shortcuts:
 - `/` focuses the search input from anywhere on the page
 - `Escape` clears the search and blurs the input
+
+### `js/code-peek.js`
+
+Loaded on all article pages (hardcoded in `_layouts/post.html`).
+
+Initialises every `details.code-peek` element that doesn't already have a `<summary>`. For each one it:
+1. Reads `data-title` and `data-peek-lines` (default 4).
+2. Finds the first `.highlight` or `<pre>` inside `.code-expand-body`.
+3. Clones it, strips any Rouge line-number table wrapper, removes the common leading whitespace from all lines, then trims to the requested number of lines.
+4. Builds a `<summary>` containing a `.ce-bar` (arrow ▶ + title + expand/collapse hint) and a `.ce-preview` (the cloned block + a `.ce-fade` gradient overlay).
+5. Inserts the summary before the body.
+
+CSS in `article.css` handles the rest: `.ce-preview` is hidden when `[open]`, the ▶ arrow rotates 90° on open, and `.ce-fade` is a gradient from transparent to `var(--surface)`.
 
 ### `js/lightbox.js`
 
