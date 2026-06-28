@@ -279,3 +279,119 @@
   .bash-line, .bash-out { white-space: pre-wrap; word-break: break-all; }
   .article-title { font-size: 1.25rem; }
 }
+
+/* ─── Search bar ─────────────────────────────────────────── */
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0 0;
+  padding: 0.6rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  transition: border-color 0.15s;
+}
+
+.search-bar:focus-within {
+  border-color: var(--amber);
+}
+
+.search-input {
+  all: unset;
+  flex: 1;
+  color: var(--amber);
+  caret-color: var(--amber);
+  min-width: 0;
+}
+
+.search-input::placeholder {
+  color: var(--text-faint);
+}
+
+.search-results-count {
+  margin-left: auto;
+  padding-left: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── No results ─────────────────────────────────────────── */
+.search-empty {
+  padding: 1.5rem 0 0.5rem;
+}
+
+.search-empty-prompt {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--red);
+}
+
+/* ─── Highlight ──────────────────────────────────────────── */
+.search-highlight {
+  color: var(--amber);
+  background: rgba(200, 149, 58, 0.12);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ─── Theme label ────────────────────────────────────────── */
+.theme-toggle {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.15s;
+}
+
+.theme-toggle:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.theme-count {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.1rem 0.45rem;
+  letter-spacing: 0.03em;
+  margin-left: auto;
+}
+
+/* ─── Article visibility ─────────────────────────────────── */
+.theme-article-hidden {
+  display: none;
+}
+
+.theme-group.expanded .theme-article-hidden {
+  display: flex;
+}
+
+/* ─── Show more button ───────────────────────────────────── */
+.theme-show-more {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  transition: color 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+}
+
+.theme-show-more:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+}
