@@ -77,6 +77,9 @@
 
       const preview = document.createElement('div');
       preview.className = 'ce-preview';
+      // Drive the visible height from peekLines so data-peek-lines is honored.
+      // line-height 1.45 × font-size 0.8rem = 1.16rem per line, + 0.6rem top padding.
+      preview.style.maxHeight = (peekLines * 1.16 + 0.6).toFixed(2) + 'rem';
       preview.appendChild(clone);
 
       const fade = document.createElement('div');

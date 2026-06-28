@@ -617,7 +617,8 @@ details.code-peek:not([open]) > summary .ce-hint::after { content: 'expand'; }
 .ce-preview {
   position: relative;
   overflow: hidden;
-  /* ~4 lines at 0.8rem font / 1.45 line-height + top padding */
+  /* max-height is set inline by code-peek.js from data-peek-lines.
+     This fallback covers the case where JS hasn't run yet (~4 lines). */
   max-height: 90px;
   border-bottom: 1px solid var(--border);
 }

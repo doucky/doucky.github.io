@@ -12,7 +12,7 @@ layout: default
       <span class="p-user">doucky</span><span class="p-sep">@</span><span class="p-host">github.io</span><span class="p-sep">:</span><span class="p-dir">~/blog/{{ page.tags | first }}</span><span class="p-sep">$ cat {{ page.slug }}.html</span>
     </div>
     {% assign words = content | number_of_words %}
-    {% assign reading_time = words | divided_by: 100 %}
+    {% assign reading_time = words | divided_by: 200 %}
     {% if reading_time < 1 %}{% assign reading_time = 1 %}{% endif %}
     <div class="card-meta" style="margin-top:1.5rem;">
       <span class="card-date">{{ page.date | date: "%b %d, %Y" }}</span>
