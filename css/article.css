@@ -215,6 +215,84 @@
   white-space: pre;
 }
 
+/* ─── Expandable code block ──────────────────────────────── */
+details.code-expand {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+}
+
+details.code-expand > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  background: var(--surface2);
+  border-bottom: 1px solid transparent;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.03em;
+  user-select: none;
+  transition: color 0.15s, background 0.15s;
+}
+
+/* Hide native disclosure marker (incl. Safari/Chrome) */
+details.code-expand > summary::-webkit-details-marker { display: none; }
+
+details.code-expand > summary::before {
+  content: '▶';
+  font-size: 0.6rem;
+  color: var(--amber);
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+details.code-expand[open] > summary {
+  border-bottom-color: var(--border);
+  color: var(--text);
+}
+
+details.code-expand[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+details.code-expand > summary:hover {
+  color: var(--text);
+}
+
+.code-expand-hint {
+  margin-left: auto;
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+details.code-expand[open] > summary .code-expand-hint::after { content: 'collapse'; }
+details.code-expand:not([open]) > summary .code-expand-hint::after { content: 'expand'; }
+
+/* Code body: works with markdown fenced blocks, Rouge .highlight, or raw pre */
+.code-expand-body {
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.code-expand-body > :first-child { margin-top: 0; }
+.code-expand-body > :last-child { margin-bottom: 0; }
+.code-expand-body pre,
+.code-expand-body .highlight {
+  margin: 0;
+  background: transparent;
+  border: none;
+}
+
 /* ─── Figure ─────────────────────────────────────────────── */
 .article-figure {
   margin: 2rem 0;
@@ -240,6 +318,78 @@
 
 .fig-num {
   color: var(--amber);
+}
+
+/* ─── Tool reference link (clickable card) ───────────────── */
+a.tool-ref {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 1.5rem 0;
+  padding: 1rem 1.3rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+a.tool-ref::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--amber);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.2s ease;
+}
+
+a.tool-ref:hover {
+  border-color: var(--text-faint);
+  background: var(--surface2);
+}
+
+a.tool-ref:hover::before {
+  transform: scaleY(1);
+}
+
+.tool-ref-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--amber);
+  line-height: 1.4;
+}
+
+.tool-ref-title::before {
+  content: '⎋';
+  font-size: 0.85rem;
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.tool-ref-desc {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.tool-ref-url {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  letter-spacing: 0.02em;
+  margin-top: 0.15rem;
+}
+
+a.tool-ref:hover .tool-ref-url {
+  color: var(--text-dim);
 }
 
 /* ─── IOC Table ──────────────────────────────────────────── */

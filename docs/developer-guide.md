@@ -156,7 +156,7 @@ All styles are split across three files:
 | File | Scope |
 |---|---|
 | `css/style.css` | Design tokens, global reset, typography, nav, home page, tools page, empty state, tag badges |
-| `css/article.css` | Article page layout, bash blocks, figures, IOC tables, search bar, theme groups, lightbox, reading progress bar, tags page, related articles, prev/next nav, reading time |
+| `css/article.css` | Article page layout, bash blocks, expandable code blocks, tool reference links, figures, IOC tables, search bar, theme groups, lightbox, reading progress bar, tags page, related articles, prev/next nav, reading time |
 | `css/syntax.css` | Rouge syntax highlighting (do not edit manually) |
 
 ### Design tokens
@@ -168,6 +168,32 @@ All colors and spacing are defined as CSS custom properties on `:root` in `style
 **Card components** — article cards and tool cards share a common structure: `background: var(--surface)`, `border: 1px solid var(--border)`, `border-radius: 4px`. Hover states use `var(--surface2)` background and `var(--text-faint)` border.
 
 **Bash blocks** — `.bash-block` mimics a terminal window. Use `.bash-line`, `.b-prompt`, `.b-user`, `.b-host`, `.b-dir`, `.b-cmd`, `.b-flag`, `.b-arg`, `.b-out` span classes for coloured syntax inside commands.
+
+**Expandable code block** — `details.code-expand` is a collapsible code container built on the native HTML `<details>`/`<summary>` element, so it needs **no JavaScript**. The `<summary>` is the clickable header bar (terminal-styled); a `▶` marker rotates on open and a `.code-expand-hint` span auto-shows `expand`/`collapse` via CSS. The code goes in a `.code-expand-body` wrapper, which strips margins/backgrounds off any nested `<pre>` or Rouge `.highlight`. To put a markdown fenced block inside, add `markdown="1"` on the body so kramdown parses it; otherwise drop in a raw `<pre>`. Example:
+
+```html
+<details class="code-expand">
+  <summary>config.py <span class="code-expand-hint"></span></summary>
+  <div class="code-expand-body" markdown="1">
+
+```python
+HOST = "10.0.0.1"
+PORT = 4444
+```
+
+  </div>
+</details>
+```
+
+**Tool reference link** — `a.tool-ref` is a fully clickable card for linking out to a tool from inside article content (defined in `article.css`). The whole `<a>` is the link, with an amber accent bar and `var(--surface2)` background on hover, matching the card pattern above. It holds three spans: `.tool-ref-title` (mono, amber; a `⎋` icon is prepended via CSS), `.tool-ref-desc` (dim description), and `.tool-ref-url` (faint mono URL). Distinct from the tools-page `.tool-card` (a `<div>`) and its inner `.tool-link`. Because it is an `<a>`, never nest other links inside it (see §12). Example:
+
+```html
+<a class="tool-ref" href="https://github.com/doucky/yara-gen" target="_blank" rel="noopener">
+  <span class="tool-ref-title">YARA Rule Generator</span>
+  <span class="tool-ref-desc">Auto-generates YARA rules from a sample.</span>
+  <span class="tool-ref-url">github.com/doucky/yara-gen</span>
+</a>
+```
 
 **Tag badges** — `.card-tag` sets base badge styles. Each tag gets a modifier class `tag-{name}` (e.g., `.tag-malware`) that sets the specific color. Add new tag colors in `style.css` near the existing `.card-tag` rules.
 
