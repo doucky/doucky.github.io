@@ -393,7 +393,7 @@ Defined on `:root` in `css/style.css`:
 | `--surface2` | `#161918` | Hover state backgrounds, bash bar |
 | `--border` | `#222725` | All borders |
 | `--text` | `#d4d8d4` | Primary text |
-| `--text-dim` | `#8a9490` | Secondary text, article prose |
+| `--text-dim` | `#aab3ad` | Secondary text, article prose |
 | `--text-faint` | `#4a534f` | Placeholder text, timestamps, labels |
 | `--amber` | `#c8953a` | Accent color (links, highlights, progress bar) |
 | `--green` | `#5a9e6f` | Terminal user color |

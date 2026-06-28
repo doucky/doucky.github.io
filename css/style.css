@@ -7,7 +7,7 @@
   --surface2:  #1e2420;
   --border:    #2a3030;
   --text:      #e8e6df;
-  --text-dim:  #8a9490;
+  --text-dim:  #aab3ad;
   --text-faint:#4a5550;
   --amber:     #c8953a;
   --green:     #5a9e6f;
@@ -241,7 +241,7 @@ nav {
 
 .card-excerpt {
   font-size: 0.85rem;
-  color: var(--text-dim);
+  color: #8a9490;
   line-height: 1.6;
 }
 
