@@ -448,3 +448,15 @@
 #lb-close:hover {
   color: var(--text);
 }
+
+/* ─── Reading progress bar ───────────────────────────────── */
+#reading-progress {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--amber);
+  z-index: 200;
+  transition: width 0.1s linear;
+}
