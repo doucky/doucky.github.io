@@ -14,6 +14,7 @@
   {{ content }}
 
   {% include footer.html %}
+  {% if page.page_js %}<script src="/js/{{ page.page_js }}.js" defer></script>{% endif %}
 
 </body>
 </html>
