@@ -70,6 +70,7 @@ doucky.github.io/
 ├── articles.html        # Articles listing (/articles/)
 ├── tools.html           # Tools page (/tools/)
 ├── whoami.html          # About page (/whoami/)
+├── 404.html             # Terminal-themed not-found page (GitHub Pages /404.html)
 └── tags.html            # Tags index (/tags/) — lists all tags with posts
 ```
 

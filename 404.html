@@ -1,0 +1,24 @@
+---
+layout: default
+title: 404
+permalink: /404.html
+---
+<div class="container">
+
+  <header class="page-header">
+    <div class="prompt-line">
+      <span class="p-user">doucky</span><span style="color:var(--text-faint)">@</span><span class="p-host">github.io</span><span style="color:var(--text-faint)">:</span><span class="p-dir">~/blog</span><span style="color:var(--text-faint)">$ cat <span class="nf-req">$REQUEST_URI</span></span>
+    </div>
+    <h1>404 <span class="accent">&mdash; not found.</span></h1>
+    <p>The file you requested doesn&rsquo;t exist on this host. It may have been moved, renamed, or never existed.</p>
+  </header>
+
+</div>
+
+<script>
+  // Surface the actual requested path so the prompt feels real.
+  (function () {
+    var path = (window.location.pathname || '/') + (window.location.search || '');
+    document.querySelectorAll('.nf-req').forEach(function (el) { el.textContent = path; });
+  })();
+</script>
