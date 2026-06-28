@@ -355,6 +355,90 @@
   white-space: pre;
 }
 
+/* ─── Annotated hex dump ─────────────────────────────────── */
+.hex-annotated {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.9;
+  color: var(--text-dim);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hex-annotated .hx {
+  cursor: help;
+  padding: 0.05rem 0.15rem;
+  border-radius: 3px;
+  border-bottom: 1px dotted var(--text-faint);
+  transition: background 0.12s, color 0.12s;
+  outline: none;
+}
+
+.hex-annotated .hx:hover,
+.hex-annotated .hx.is-active,
+.hex-annotated .hx:focus-visible {
+  background: rgba(200, 149, 58, 0.18);
+  color: var(--text);
+  border-bottom-color: var(--amber);
+}
+
+.hex-annotated .hx-ascii {
+  color: var(--text-faint);
+}
+
+/* Floating tooltip (appended to <body> by hex-annotate.js) */
+.hex-tip {
+  position: absolute;
+  z-index: 50;
+  max-width: 18rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.12s, transform 0.12s;
+}
+
+.hex-tip.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Little caret */
+.hex-tip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: var(--surface2);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.hex-tip.below::after {
+  bottom: auto;
+  top: -5px;
+  border-right: none;
+  border-bottom: none;
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+
 /* ─── Copy code button ───────────────────────────────────── */
 .article-content .highlight.has-copy-btn { position: relative; }
 

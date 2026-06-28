@@ -192,6 +192,12 @@ using NanoCore;
 </details>
 ```
 
+**Annotated hex dump** — `.hex-annotated` renders a hex blob where each byte (or group of bytes) wrapped in a `<span class="hx" data-tip="…">` shows a floating tooltip on hover/focus. Requires `hex-annotate.js` (loaded on all article pages). Use `.hx-ascii` for the trailing ASCII column (greyed, no tooltip). Optionally link several spans with matching `data-group="x"` so hovering any of them highlights the whole group. Escape quotes inside `data-tip` as `&quot;`.
+
+```html
+<div class="hex-annotated"><span class="hx" data-tip="Type ID of string">0C</span> <span class="hx" data-tip="Size of the string: 10 bytes">0A</span> <span class="hx" data-tip="Data: &quot;BufferSize&quot;">42 75 66 66 65 72 53 69 7A 65</span> <span class="hx" data-tip="Type ID of uint32">07</span> <span class="hx" data-tip="uint32 value = 65535">FF FF 00 00</span>  <span class="hx-ascii">..BufferSize.....</span></div>
+```
+
 **Supported Rouge language identifiers** — pass the identifier after `{% highlight … %}`. The most relevant ones for malware/RE work:
 
 | Identifier | Language |
