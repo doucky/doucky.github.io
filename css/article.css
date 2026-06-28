@@ -355,6 +355,39 @@
   white-space: pre;
 }
 
+/* ─── Copy code button ───────────────────────────────────── */
+.article-content .highlight.has-copy-btn { position: relative; }
+
+.copy-code-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.7rem;
+  z-index: 2;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.highlight.has-copy-btn:hover .copy-code-btn,
+.copy-code-btn:focus-visible { opacity: 1; }
+
+.copy-code-btn:hover { color: var(--text-dim); }
+
+.copy-code-btn.is-ok  { color: var(--green); opacity: 1; }
+.copy-code-btn.is-err { color: var(--red);   opacity: 1; }
+
+/* Touch devices: no hover, keep the button visible */
+@media (hover: none) {
+  .copy-code-btn { opacity: 0.6; }
+}
+
 /* ─── Expandable code block ──────────────────────────────── */
 details.code-expand {
   background: var(--surface);
