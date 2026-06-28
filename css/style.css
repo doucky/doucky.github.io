@@ -464,3 +464,182 @@ footer {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
 }
+
+/* ─── Tools page ─────────────────────────────────────────── */
+.tools-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.4rem 1.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--green);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.2s ease;
+}
+
+.tool-card:hover {
+  border-color: var(--text-faint);
+  background: var(--surface2);
+}
+
+.tool-card:hover::before {
+  transform: scaleY(1);
+}
+
+.tool-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tool-name-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tool-prompt {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.tool-name {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--green);
+}
+
+.tool-status {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.1rem 0.45rem;
+  border-radius: 2px;
+  margin-left: auto;
+}
+
+.tool-status-active {
+  color: var(--green);
+  background: rgba(90, 158, 111, 0.1);
+  border: 1px solid rgba(90, 158, 111, 0.25);
+}
+
+.tool-status-wip {
+  color: var(--amber);
+  background: rgba(200, 149, 58, 0.1);
+  border: 1px solid rgba(200, 149, 58, 0.25);
+}
+
+.tool-status-archived {
+  color: var(--text-faint);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+
+.tool-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.tool-lang {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--blue);
+  background: rgba(91, 143, 168, 0.1);
+  border: 1px solid rgba(91, 143, 168, 0.2);
+  padding: 0.1rem 0.45rem;
+  border-radius: 2px;
+}
+
+.tool-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.45rem;
+  border-radius: 2px;
+}
+
+.tool-description {
+  font-size: 0.87rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.tool-link {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  transition: color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tool-link:hover {
+  color: var(--amber);
+}
+
+.tool-link-icon {
+  font-size: 0.8rem;
+}
+
+/* ─── Empty state ────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 2rem 1.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  border-style: dashed;
+  margin-top: var(--gap);
+}
+
+.empty-state-prompt {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+.empty-state-prompt .p-cmd { color: var(--red); }
+
+.empty-state-msg {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+.empty-state-soon {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--amber);
+}

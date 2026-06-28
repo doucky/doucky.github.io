@@ -1,0 +1,49 @@
+---
+layout: default
+title: tools
+permalink: /tools/
+---
+<div class="container">
+
+  <header class="page-header">
+    <div class="prompt-line">
+      <span class="p-user">doucky</span><span style="color:var(--text-faint)">@</span><span class="p-host">github.io</span><span style="color:var(--text-faint)">:</span><span class="p-dir">~/tools</span><span style="color:var(--text-faint)">$ ls -la</span>
+    </div>
+    <h1>Tools <span class="accent">&amp; scripts.</span></h1>
+    <p>Open-source utilities for malware analysis, detection engineering, and reverse engineering.</p>
+  </header>
+
+  <section class="section">
+    {% if site.data.tools and site.data.tools.size > 0 %}
+    <div class="tools-grid">
+      {% for tool in site.data.tools %}
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-name-row">
+            <span class="tool-prompt">~/tools/</span><span class="tool-name">{{ tool.name }}</span>
+            <span class="tool-status tool-status-{{ tool.status }}">{{ tool.status }}</span>
+          </div>
+          <div class="tool-meta">
+            <span class="tool-lang">{{ tool.lang }}</span>
+            {% for tag in tool.tags %}
+            <span class="tool-tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <p class="tool-description">{{ tool.description }}</p>
+        <a class="tool-link" href="{{ tool.url }}" target="_blank" rel="noopener">
+          <span class="tool-link-icon">⎋</span> {{ tool.url | remove: "https://" }}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <span class="empty-state-prompt"><span class="p-cmd">error</span>: no files found in ~/tools/</span>
+      <span class="empty-state-msg">No tools published yet.</span>
+      <span class="empty-state-soon">// coming soon</span>
+    </div>
+    {% endif %}
+  </section>
+
+</div>

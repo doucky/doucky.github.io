@@ -74,6 +74,14 @@ page_js: articles
         {% endif %}
       {% endfor %}
 
+      {% if site.posts.size == 0 %}
+      <div class="empty-state">
+        <span class="empty-state-prompt"><span class="p-cmd">error</span>: no files found in ~/blog/</span>
+        <span class="empty-state-msg">No articles published yet.</span>
+        <span class="empty-state-soon">// coming soon</span>
+      </div>
+      {% endif %}
+
       <div class="search-empty" id="search-empty" style="display:none">
         <span class="search-empty-prompt">bash: no matches found for pattern "<span id="search-empty-term"></span>"</span>
       </div>

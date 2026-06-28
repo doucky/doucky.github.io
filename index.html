@@ -17,6 +17,7 @@ permalink: /
     <div class="section-header">
       <h2>Latest articles</h2>
     </div>
+    {% if site.posts.size > 0 %}
     <div class="article-list">
       {% for post in site.posts limit:5 %}
       <a class="article-card" href="{{ post.url }}">
@@ -32,6 +33,13 @@ permalink: /
       </a>
       {% endfor %}
     </div>
+    {% else %}
+    <div class="empty-state">
+      <span class="empty-state-prompt"><span class="p-cmd">error</span>: no files found in ~/blog/</span>
+      <span class="empty-state-msg">No articles published yet.</span>
+      <span class="empty-state-soon">// coming soon</span>
+    </div>
+    {% endif %}
   </section>
 
 </div>
