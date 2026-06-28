@@ -31,6 +31,23 @@ layout: default
 
   <hr class="article-divider" />
 
+  <nav class="post-nav">
+    {% if page.next %}
+    <a class="post-nav-link post-nav-prev" href="{{ page.next.url }}">
+      <span class="post-nav-label">← newer</span>
+      <span class="post-nav-title">{{ page.next.title }}</span>
+    </a>
+    {% else %}
+    <div></div>
+    {% endif %}
+    {% if page.previous %}
+    <a class="post-nav-link post-nav-next" href="{{ page.previous.url }}">
+      <span class="post-nav-label">older →</span>
+      <span class="post-nav-title">{{ page.previous.title }}</span>
+    </a>
+    {% endif %}
+  </nav>
+
   <footer class="article-footer">
     <a href="/articles/" class="back-link">← all articles</a>
     <span class="article-footer-date">Published {{ page.date | date: "%b %d, %Y" }}</span>
