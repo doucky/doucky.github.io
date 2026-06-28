@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    // Applique le thème avant le rendu pour éviter tout flash
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (!t) {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+      } catch (e) {}
+    })();
+  </script>
   {% include head.html %}
   <style>
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
@@ -14,6 +26,7 @@
   {{ content }}
 
   {% include footer.html %}
+  <script src="/js/theme-toggle.js?v={{ site.time | date: '%s' }}" defer></script>
   {% if page.page_js %}<script src="/js/{{ page.page_js }}.js" defer></script>{% endif %}
 
 </body>

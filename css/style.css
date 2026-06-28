@@ -51,11 +51,40 @@
   --pink:      #b06a93;
   --orange:    #c4774a;
 
+  --nav-bg:    rgba(13, 15, 14, 0.92);
+
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --font-body: 'Inter', system-ui, sans-serif;
 
   --max-w: 980px;
   --gap:   2.5rem;
+}
+
+/* ─── Light theme overrides ─────────────────────────────── */
+:root[data-theme="light"] {
+  --bg:        #faf9f5;
+  --surface:   #f1efe8;
+  --surface2:  #e7e4da;
+  --border:    #d8d4c7;
+  --text:      #26241f;
+  --text-dim:  #585650;
+  --text-faint:#9a988e;
+  --amber:     #9c6c1c;
+  --green:     #3a7650;
+  --red:       #9a3f3f;
+  --blue:      #3c6c86;
+  --purple:    #66509a;
+  --teal:      #2c7c72;
+  --pink:      #9a4870;
+  --orange:    #a4562a;
+
+  --nav-bg:    rgba(250, 249, 245, 0.92);
+}
+
+/* Smooth transition when switching themes */
+body, nav, .highlight, pre, code, a, .tag,
+[class*="card"], [class*="surface"] {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 /* ─── Reset ─────────────────────────────────────────────── */
@@ -101,7 +130,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(13, 15, 14, 0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(8px);
 }
 
@@ -126,11 +155,47 @@ nav {
 .nav-logo .prompt { color: var(--green); }
 .nav-logo .at     { color: var(--text-dim); }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .nav-links {
   display: flex;
   gap: 0.25rem;
   list-style: none;
 }
+
+/* ─── Theme toggle ───────────────────────────────────────── */
+.theme-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.theme-switch:hover {
+  color: var(--amber);
+  background: var(--surface2);
+  border-color: var(--amber);
+}
+
+.theme-switch svg { width: 15px; height: 15px; }
+
+/* Show sun in dark mode (to switch to light), moon in light mode */
+.theme-switch .icon-sun  { display: block; }
+.theme-switch .icon-moon { display: none; }
+:root[data-theme="light"] .theme-switch .icon-sun  { display: none; }
+:root[data-theme="light"] .theme-switch .icon-moon { display: block; }
 
 .nav-links a {
   font-family: var(--font-mono);

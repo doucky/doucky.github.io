@@ -1,12 +1,12 @@
 /* ─── Rouge Syntax Highlighting ──────────────────────────────
    Palette matched to the site theme:
-   amber  #c8953a  → keywords, tags
-   green  #5a9e6f  → strings, values
-   blue   #5b8fa8  → functions, names, attributes
-   red    #b05555  → numbers, constants, deleted
-   dim    #8a9490  → operators, punctuation
-   faint  #4a5550  → comments
-   text   #e8e6df  → plain tokens
+   amber  var(--amber)  → keywords, tags
+   green  var(--green)  → strings, values
+   blue   var(--blue)  → functions, names, attributes
+   red    var(--red)  → numbers, constants, deleted
+   dim    var(--text-dim)  → operators, punctuation
+   faint  var(--text-faint)  → comments
+   text   var(--text)  → plain tokens
 ──────────────────────────────────────────────────────────── */
 
 .highlight {
@@ -44,7 +44,7 @@
 .highlight .c1,
 .highlight .cm,
 .highlight .cs,
-.highlight .cp  { color: #4a5550; font-style: italic; }
+.highlight .cp  { color: var(--text-faint); font-style: italic; }
 
 /* Keywords: def, class, if, return, import… */
 .highlight .k,
@@ -53,23 +53,23 @@
 .highlight .kp,
 .highlight .kr,
 .highlight .kt,
-.highlight .kc  { color: #c8953a; }
+.highlight .kc  { color: var(--amber); }
 
 /* Built-ins and special names */
-.highlight .nb  { color: #c8953a; opacity: 0.85; }
+.highlight .nb  { color: var(--amber); opacity: 0.85; }
 
 /* Function / method names */
 .highlight .nf,
-.highlight .nx  { color: #5b8fa8; }
+.highlight .nx  { color: var(--blue); }
 
 /* Class names */
-.highlight .nc  { color: #5b8fa8; font-style: italic; }
+.highlight .nc  { color: var(--blue); font-style: italic; }
 
 /* Variable / attribute names */
 .highlight .n,
 .highlight .na,
 .highlight .nv,
-.highlight .nt  { color: #e8e6df; }
+.highlight .nt  { color: var(--text); }
 
 /* Strings */
 .highlight .s,
@@ -83,7 +83,7 @@
 .highlight .si,
 .highlight .sx,
 .highlight .sr,
-.highlight .ss  { color: #5a9e6f; }
+.highlight .ss  { color: var(--green); }
 
 /* Numbers & literals */
 .highlight .m,
@@ -92,35 +92,35 @@
 .highlight .mi,
 .highlight .mo,
 .highlight .il,
-.highlight .mb  { color: #b05555; }
+.highlight .mb  { color: var(--red); }
 
 /* Booleans / constants */
 .highlight .bp,
-.highlight .no  { color: #b05555; }
+.highlight .no  { color: var(--red); }
 
 /* Operators */
 .highlight .o,
-.highlight .ow  { color: #8a9490; }
+.highlight .ow  { color: var(--text-dim); }
 
 /* Punctuation */
-.highlight .p   { color: #8a9490; }
+.highlight .p   { color: var(--text-dim); }
 
 /* Decorator / annotation */
-.highlight .nd  { color: #c8953a; opacity: 0.75; }
+.highlight .nd  { color: var(--amber); opacity: 0.75; }
 
 /* Namespace / module */
-.highlight .nn  { color: #5b8fa8; }
+.highlight .nn  { color: var(--blue); }
 
 /* Heredoc / multiline */
-.highlight .nl  { color: #5b8fa8; }
+.highlight .nl  { color: var(--blue); }
 
 /* Errors */
-.highlight .err { color: #b05555; background: rgba(176,85,85,0.15); }
+.highlight .err { color: var(--red); background: rgba(176,85,85,0.15); }
 
 /* Diff: inserted / deleted */
-.highlight .gi  { color: #5a9e6f; background: rgba(90,158,111,0.1); }
-.highlight .gd  { color: #b05555; background: rgba(176,85,85,0.1); }
+.highlight .gi  { color: var(--green); background: rgba(90,158,111,0.1); }
+.highlight .gd  { color: var(--red); background: rgba(176,85,85,0.1); }
 
 /* Generic: prompt, output */
-.highlight .gp  { color: #4a5550; user-select: none; }
-.highlight .go  { color: #8a9490; }
+.highlight .gp  { color: var(--text-faint); user-select: none; }
+.highlight .go  { color: var(--text-dim); }
