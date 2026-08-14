@@ -1,0 +1,12 @@
+- name: awesome-event-viewer
+  description: "A better event viewer for windows native one."
+  url: "https://github.com/doucky/awesome-event-viewer"
+  lang: Rust
+  tags: [evtx]
+  status: wip
+- name: Nanocore decrypt config
+  description: "A python script to decrypt nanocore configuration from .exe file."
+  url: "https://github.com/doucky/nanocore-decrypt-config"
+  lang: Python
+  tags: [Malware, Reverse]
+  status: active

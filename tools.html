@@ -17,7 +17,7 @@ permalink: /tools/
     {% if site.data.tools and site.data.tools.size > 0 %}
     <div class="tools-grid">
       {% for tool in site.data.tools %}
-      <div class="tool-card">
+      <a class="tool-card" href="{{ tool.url }}" target="_blank" rel="noopener">
         <div class="tool-header">
           <div class="tool-name-row">
             <span class="tool-prompt">~/tools/</span><span class="tool-name">{{ tool.name }}</span>
@@ -31,10 +31,10 @@ permalink: /tools/
           </div>
         </div>
         <p class="tool-description">{{ tool.description }}</p>
-        <a class="tool-link" href="{{ tool.url }}" target="_blank" rel="noopener">
+        <div class="tool-link" >
           <span class="tool-link-icon">⎋</span> {{ tool.url | remove: "https://" }}
-        </a>
-      </div>
+        </div>
+      </a>
       {% endfor %}
     </div>
     {% else %}

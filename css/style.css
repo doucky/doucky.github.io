@@ -735,7 +735,7 @@ footer {
   gap: 0.4rem;
 }
 
-.tool-link:hover {
+.tool-card:hover .tool-link {
   color: var(--amber);
 }
 
